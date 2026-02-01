@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة تحكم المدير</title>
+    <link rel="stylesheet" href="./admin-dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="admin-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="admin-sidebar" role="navigation" aria-label="قائمة الملاحة الرئيسية">
+            <img src="./Logo.png" alt="شعار الجمعية" class="logo">
+            <nav>
+                <ul role="menubar">
+                    <li role="none"><a href="#pages" class="active" role="menuitem"><i class="fas fa-file-alt"></i>
+                            الصفحات</a></li>
+                    <li role="none"><a href="#who-we-are" role="menuitem"><i class="fas fa-users"></i> من نحن</a></li>
+                    <li role="none"><a href="#organizational-structure" role="menuitem"><i class="fas fa-sitemap"></i>
+                            الهيكل التنظيمي</a></li>
+                    <li role="none"><a href="#founders" role="menuitem"><i class="fas fa-user-tie"></i> المؤسسون</a>
+                    </li>
+                    <li role="none"><a href="#general-assembly" role="menuitem"><i class="fas fa-users-cog"></i> الجمعية
+                            العمومية</a></li>
+                    <li role="none"><a href="#board-of-directors" role="menuitem"><i class="fas fa-briefcase"></i> مجلس
+                            الإدارة</a></li>
+                    <li role="none"><a href="#executive-management" role="menuitem"><i class="fas fa-user-shield"></i>
+                            الإدارة التنفيذية</a></li>
+                    <li role="none"><a href="#license-certificate" role="menuitem"><i class="fas fa-certificate"></i>
+                            شهادة الترخيص</a></li>
+                    <li role="none"><a href="#governance-guides" role="menuitem"><i class="fas fa-book"></i> أدلة
+                            الحوكمة</a></li>
+                    <li role="none"><a href="#regulations-policies" role="menuitem"><i class="fas fa-file-contract"></i>
+                            اللوائح والسياسات</a></li>
+                    <li role="none"><a href="#annual-reports" role="menuitem"><i class="fas fa-chart-bar"></i> التقارير
+                            السنوية</a></li>
+                    <li role="none"><a href="#news" role="menuitem"><i class="fas fa-newspaper"></i> الأخبار</a></li>
+                    <li role="none"><a href="#projects" role="menuitem"><i class="fas fa-tasks"></i> المشاريع</a></li>
+                    <li role="none"><a href="#donations" role="menuitem"><i class="fas fa-donate"></i> فرص التبرع</a>
+                    </li>
+                    <li role="none"><a href="#jobs" role="menuitem"><i class="fas fa-briefcase"></i> الوظائف</a></li>
+                    <li role="none"><a href="#media" role="menuitem"><i class="fas fa-photo-video"></i> الصور
+                            والفيديو</a></li>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main" role="main">
+            <header class="admin-header">
+                <h1><i class="fas fa-cogs"></i> لوحة تحكم المدير</h1>
+                <a href="../index.html" class="back-link"><i class="fas fa-globe"></i> العودة للموقع</a>
+            </header>
+
+            <section class="admin-actions-grid">
+                <!-- Primary Pages Section -->
+                <article class="admin-card" id="pages" data-section="pages">
+                    <h2><i class="fas fa-file-alt"></i> الصفحات الرئيسية</h2>
+                    <nav class="admin-links">
+                        <a class="admin-link" href="../index.html" target="_blank"><i class="fas fa-home"></i>
+                            الصفحة الرئيسية</a>
+                        <a class="admin-link" href="../who-we-are.html" target="_blank"><i class="fas fa-users"></i> من
+                            نحن</a>
+                        <a class="admin-link" href="../organizational-structure.html" target="_blank"><i
+                                class="fas fa-sitemap"></i> الهيكل التنظيمي</a>
+                        <a class="admin-link" href="../founders.html" target="_blank"><i class="fas fa-user-tie"></i>
+                            المؤسسون</a>
+                        <a class="admin-link" href="../general-assembly.html" target="_blank"><i
+                                class="fas fa-users-cog"></i> الجمعية العمومية</a>
+                        <a class="admin-link" href="../board-of-directors.html" target="_blank"><i
+                                class="fas fa-briefcase"></i> مجلس الإدارة</a>
+                        <a class="admin-link" href="../executive-management.html" target="_blank"><i
+                                class="fas fa-user-shield"></i> الإدارة التنفيذية</a>
+                        <a class="admin-link" href="../license-certificate.html" target="_blank"><i
+                                class="fas fa-certificate"></i> شهادة الترخيص</a>
+                    </nav>
+                </article>
+
+                <!-- Organization Section -->
+                <article class="admin-card" id="who-we-are" data-section="who-we-are">
+                    <h2><i class="fas fa-users"></i> من نحن</h2>
+                    <div class="admin-actions">
+                        <input type="file" id="upload-about-us-image" class="admin-upload-input" accept="image/*" data-action="edit" data-route="about-us-image" hidden>
+                        <label for="upload-about-us-image" class="admin-btn admin-btn-upload"><i class="fas fa-pen-to-square"></i> رفع صورة</label>
+                        <button type="button" class="admin-btn" data-action="delete" data-route="about-us-image"><i class="fas fa-trash"></i> حذف</button>
+                    </div>
+                    <a class="admin-link" href="../who-we-are.html" target="_blank"><i class="fas fa-eye"></i> عرض
+                        الصفحة</a>
+                </article>
+
+                <article class="admin-card" id="organizational-structure" data-section="organizational-structure">
+                    <h2><i class="fas fa-sitemap"></i> الهيكل التنظيمي</h2>
+                    <div class="admin-actions">
+                        <input type="file" id="upload-organizational-structure-image" class="admin-upload-input" accept="image/*" data-action="edit" data-route="organizational-structure-image" hidden>
+                        <label for="upload-organizational-structure-image" class="admin-btn admin-btn-upload"><i class="fas fa-pen-to-square"></i> رفع صورة</label>
+                        <button type="button" class="admin-btn" data-action="delete" data-route="organizational-structure-image"><i class="fas fa-trash"></i> حذف</button>
+                    </div>
+                    <a class="admin-link" href="../organizational-structure.html" target="_blank"><i
+                            class="fas fa-eye"></i> عرض الصفحة</a>
+                </article>
+
+                <article class="admin-card" id="founders" data-section="founders">
+                    <h2><i class="fas fa-user-tie"></i> المؤسسون</h2>
+                    <div class="admin-actions">
+                        <input type="file" id="upload-founders-image" class="admin-upload-input" accept="image/*" data-action="edit" data-route="founders-image" hidden>
+                        <label for="upload-founders-image" class="admin-btn admin-btn-upload"><i class="fas fa-pen-to-square"></i> رفع صورة</label>
+                        <button type="button" class="admin-btn" data-action="delete" data-route="founders-image"><i class="fas fa-trash"></i> حذف</button>
+                    </div>
+                    <a class="admin-link" href="../founders.html" target="_blank"><i class="fas fa-eye"></i> عرض
+                        الصفحة</a>
+                </article>
+
+                <!-- Governance Section -->
+                <article class="admin-card" id="general-assembly" data-section="general-assembly">
+                    <h2><i class="fas fa-users-cog"></i> الجمعية العمومية</h2>
+                    <div class="admin-actions">
+                        <input type="file" id="upload-general-assembly-image" class="admin-upload-input" accept="image/*" data-action="edit" data-route="general-assembly-image" hidden>
+                        <label for="upload-general-assembly-image" class="admin-btn admin-btn-upload"><i class="fas fa-pen-to-square"></i> رفع صورة</label>
+                        <button type="button" class="admin-btn" data-action="delete" data-route="general-assembly-image"><i class="fas fa-trash"></i> حذف</button>
+                    </div>
+                    <a class="admin-link" href="../general-assembly.html" target="_blank"><i class="fas fa-eye"></i> عرض
+                        الصفحة</a>
+                </article>
+
+                <article class="admin-card" id="board-of-directors" data-section="board-of-directors">
+                    <h2><i class="fas fa-briefcase"></i> مجلس الإدارة</h2>
+                    <div class="admin-actions">
+                        <input type="file" id="upload-board-of-directors-image" class="admin-upload-input" accept="image/*" data-action="edit" data-route="board-of-directors-image" hidden>
+                        <label for="upload-board-of-directors-image" class="admin-btn admin-btn-upload"><i class="fas fa-pen-to-square"></i> رفع صورة</label>
+                        <button type="button" class="admin-btn" data-action="delete" data-route="board-of-directors-image"><i class="fas fa-trash"></i> حذف</button>
+                    </div>
+                    <a class="admin-link" href="../board-of-directors.html" target="_blank"><i class="fas fa-eye"></i>
+                        عرض الصفحة</a>
+                </article>
+
+                <article class="admin-card" id="executive-management" data-section="executive-management">
+                    <h2><i class="fas fa-user-shield"></i> الإدارة التنفيذية</h2>
+                    <div class="admin-actions">
+                        <input type="file" id="upload-executive-management-image" class="admin-upload-input" accept="image/*" data-action="edit" data-route="executive-management-image" hidden>
+                        <label for="upload-executive-management-image" class="admin-btn admin-btn-upload"><i class="fas fa-pen-to-square"></i> رفع صورة</label>
+                        <button type="button" class="admin-btn" data-action="delete" data-route="executive-management-image"><i class="fas fa-trash"></i> حذف</button>
+                    </div>
+                    <a class="admin-link" href="../executive-management.html" target="_blank"><i class="fas fa-eye"></i>
+                        عرض الصفحة</a>
+                </article>
+
+                <!-- Policies Section -->
+                <article class="admin-card" id="license-certificate" data-section="license-certificate">
+                    <h2><i class="fas fa-certificate"></i> شهادة الترخيص</h2>
+                    <div class="admin-actions">
+                        <input type="file" id="upload-license-certificate-image" class="admin-upload-input" accept="image/*" data-action="edit" data-route="license-certificate-image" hidden>
+                        <label for="upload-license-certificate-image" class="admin-btn admin-btn-upload"><i class="fas fa-pen-to-square"></i> رفع صورة</label>
+                        <button type="button" class="admin-btn" data-action="delete" data-route="license-certificate-image"><i class="fas fa-trash"></i> حذف</button>
+                    </div>
+                    <a class="admin-link" href="../license-certificate.html" target="_blank"><i class="fas fa-eye"></i>
+                        عرض الصفحة</a>
+                </article>
+
+                <article class="admin-card" id="governance-guides" data-section="governance-guides">
+                    <h2><i class="fas fa-book"></i> أدلة الحوكمة</h2>
+                    <div class="admin-actions">
+                        <input type="file" id="upload-governance-guides-image" class="admin-upload-input" accept="image/*" data-action="edit" data-route="governance-guides-image" hidden>
+                        <label for="upload-governance-guides-image" class="admin-btn admin-btn-upload"><i class="fas fa-pen-to-square"></i> رفع صورة</label>
+                        <button type="button" class="admin-btn" data-action="delete" data-route="governance-guides-image"><i class="fas fa-trash"></i> حذف</button>
+                    </div>
+                    <a class="admin-link" href="../governance-guides.html" target="_blank"><i class="fas fa-eye"></i>
+                        عرض الصفحة</a>
+                </article>
+
+                <article class="admin-card" id="regulations-policies" data-section="regulations-policies">
+                    <h2><i class="fas fa-file-contract"></i> اللوائح والسياسات</h2>
+                    <div class="admin-actions">
+                        <input type="file" id="upload-regulations-policies-image" class="admin-upload-input" accept="image/*" data-action="edit" data-route="regulations-policies-image" hidden>
+                        <label for="upload-regulations-policies-image" class="admin-btn admin-btn-upload"><i class="fas fa-pen-to-square"></i> رفع صورة</label>
+                        <button type="button" class="admin-btn" data-action="delete" data-route="regulations-policies-image"><i class="fas fa-trash"></i> حذف</button>
+                    </div>
+                    <a class="admin-link" href="../regulations-policies.html" target="_blank"><i class="fas fa-eye"></i>
+                        عرض الصفحة</a>
+                </article>
+
+                <article class="admin-card" id="annual-reports" data-section="annual-reports">
+                    <h2><i class="fas fa-chart-bar"></i> التقارير السنوية</h2>
+                    <div class="admin-actions">
+                        <input type="file" id="upload-annual-reports-image" class="admin-upload-input" accept="image/*" data-action="edit" data-route="annual-reports-image" hidden>
+                        <label for="upload-annual-reports-image" class="admin-btn admin-btn-upload"><i class="fas fa-pen-to-square"></i> رفع صورة</label>
+                        <button type="button" class="admin-btn" data-action="delete" data-route="annual-reports-image"><i class="fas fa-trash"></i> حذف</button>
+                    </div>
+                    <a class="admin-link" href="../annual-reports.html" target="_blank"><i class="fas fa-eye"></i>
+                        عرض الصفحة</a>
+                </article>
+
+                <!-- Content Management Section -->
+                <article class="admin-card" id="news" data-section="news">
+                    <h2><i class="fas fa-newspaper"></i> الأخبار</h2>
+                    <div class="admin-actions">
+                        <a class="admin-btn" href="./news-management.html"
+                            style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px;"><i
+                                class="fas fa-cog"></i> إدارة الأخبار</a>
+                    </div>
+                    <a class="admin-link" href="../index.html#news" target="_blank"><i class="fas fa-eye"></i> عرض
+                        الأخبار</a>
+                </article>
+
+                <article class="admin-card" id="projects" data-section="projects">
+                    <h2><i class="fas fa-tasks"></i> المشاريع</h2>
+                    <div class="admin-actions">
+                        <a class="admin-btn" href="./projects-management.html"
+                            style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px;"><i
+                                class="fas fa-cog"></i> إدارة المشاريع</a>
+                    </div>
+                    <a class="admin-link" href="../index.html#projects" target="_blank"><i class="fas fa-eye"></i>
+                        عرض المشاريع</a>
+                </article>
+
+                <article class="admin-card" id="donations" data-section="donations">
+                    <h2><i class="fas fa-donate"></i> فرص التبرع (المتجر)</h2>
+                    <div class="admin-actions">
+                        <a class="admin-btn" href="https://uxuhap.zid.store/" target="_blank"><i
+                                class="fas fa-store"></i> الذهاب للمتجر</a>
+                    </div>
+                </article>
+
+                <!-- User Management Section -->
+                <article class="admin-card" id="jobs" data-section="jobs">
+                    <h2><i class="fas fa-briefcase"></i> الوظائف</h2>
+                    <div class="admin-actions">
+                        <a class="admin-btn" href="./jobs-management.html"
+                            style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px;"><i
+                                class="fas fa-cog"></i> إدارة الوظائف</a>
+                    </div>
+                    <a class="admin-link" href="../index.html#jobs" target="_blank"><i class="fas fa-eye"></i> عرض
+                        الوظائف</a>
+                </article>
+
+                <article class="admin-card" id="videos" data-section="media">
+                    <h2><i class="fas fa-photo-video"></i> الفيديو </h2>
+                    <div class="admin-actions">
+                        <a class="admin-btn" href="./videos-management.html"
+                            style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px;"><i
+                                class="fas fa-cog"></i> إدارة الفيديو</a>
+                    </div>
+                    <a class="admin-link" href="../index.html#video-gallery" target="_blank"><i
+                            class="fas fa-video"></i> مكتبة الفيديو</a>
+                </article>
+
+                <article class="admin-card" id="images" data-section="media">
+                    <h2><i class="fas fa-photo-video"></i> الصور </h2>
+                    <div class="admin-actions">
+                        <a class="admin-btn" href="./images-management.html"
+                            style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px;"><i
+                                class="fas fa-cog"></i> إدارة الصور</a>
+                    </div>
+                    <a class="admin-link" href="../index.html#photo-gallery" target="_blank"><i
+                            class="fas fa-images"></i> مكتبة الصور</a>
+                </article>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        const API_BASE = 'https://your-api-endpoint';
+
+        /**
+         * Upload an image to the given route using FormData (multipart/form-data).
+         * @param {string} route - API route (e.g. "about-us-image")
+         * @param {File} file - The image file to upload
+         */
+        function uploadImage(route, file) {
+            if (!file || !file.type.startsWith('image/')) {
+                console.warn('يرجى اختيار ملف صورة صالح.');
+                return;
+            }
+            const url = `${API_BASE}/${route}`;
+            const formData = new FormData();
+            formData.append('image', file);
+            formData.append('route', route);
+
+            fetch(url, {
+                method: 'POST',
+                body: formData
+                // Do not set Content-Type: browser sets multipart/form-data with boundary
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('تم رفع الصورة:', data);
+                })
+                .catch(error => console.error('خطأ في رفع الصورة:', error));
+        }
+
+        /**
+         * Delete or other non-upload actions (JSON body).
+         */
+        function handleData(action, route) {
+            const url = `${API_BASE}/${route}`;
+            const options = {
+                method: action === 'delete' ? 'DELETE' : 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ /* Your data here */ })
+            };
+
+            fetch(url, options)
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .catch(error => console.error('Error:', error));
+        }
+
+        // File inputs: on change, upload the selected image
+        document.querySelectorAll('.admin-upload-input').forEach(input => {
+            input.addEventListener('change', function () {
+                const file = this.files && this.files[0];
+                const route = this.getAttribute('data-route');
+                if (file && route) {
+                    uploadImage(route, file);
+                    this.value = ''; // allow re-selecting same file
+                }
+            });
+        });
+
+        // Delete buttons
+        document.querySelectorAll('.admin-btn[data-action="delete"]').forEach(button => {
+            button.addEventListener('click', function () {
+                const route = this.getAttribute('data-route');
+                if (route) {
+                    handleData('delete', route);
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

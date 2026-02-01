@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة الصور</title>
+    <link rel="stylesheet" href="./admin-dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .management-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .management-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e7d7b9;
+        }
+
+        .management-header h1 {
+            color: #b28935;
+            font-size: 28px;
+            font-weight: 900;
+            margin: 0;
+        }
+
+        .add-item-btn {
+            background: linear-gradient(90deg, #b28935 60%, #d4a24e 100%);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 12px 24px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.22s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .add-item-btn:hover {
+            background: linear-gradient(90deg, #a67c2d 60%, #b28935 100%);
+            box-shadow: 0 4px 16px rgba(178, 137, 53, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 24px rgba(178, 137, 53, 0.12);
+        }
+
+        .items-table thead {
+            background: linear-gradient(90deg, #b28935, #d4a24e);
+            color: #fff;
+        }
+
+        .items-table th {
+            padding: 16px;
+            text-align: right;
+            font-weight: 700;
+            font-size: 15px;
+            letter-spacing: 0.5px;
+        }
+
+        .items-table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid #f3e6cc;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .items-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .items-table tbody tr:hover {
+            background: #fffbe9;
+        }
+
+        .item-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-btn {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.22s ease;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .edit-btn {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .edit-btn:hover {
+            background: #1976d2;
+            color: #fff;
+        }
+
+        .delete-btn {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .delete-btn:hover {
+            background: #c62828;
+            color: #fff;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .empty-state i {
+            font-size: 64px;
+            color: #ddd;
+            margin-bottom: 16px;
+        }
+
+        .empty-state p {
+            font-size: 16px;
+            margin: 0;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 32px;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid #f3e6cc;
+        }
+
+        .modal-header h2 {
+            color: #b28935;
+            font-size: 22px;
+            margin: 0;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 28px;
+            color: #b28935;
+            cursor: pointer;
+            transition: color 0.22s ease;
+        }
+
+        .close-btn:hover {
+            color: #a67c2d;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1.5px solid #e7d7b9;
+            border-radius: 8px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 14px;
+            transition: border-color 0.22s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #b28935;
+            box-shadow: 0 0 0 3px rgba(178, 137, 53, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .modal-actions button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.22s ease;
+            font-size: 14px;
+        }
+
+        .save-btn {
+            background: linear-gradient(90deg, #b28935 60%, #d4a24e 100%);
+            color: #fff;
+        }
+
+        .save-btn:hover {
+            box-shadow: 0 4px 12px rgba(178, 137, 53, 0.25);
+            transform: translateY(-2px);
+        }
+
+        .cancel-btn {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .cancel-btn:hover {
+            background: #e0e0e0;
+        }
+
+        .image-preview {
+            width: 100%;
+            max-width: 200px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-top: 8px;
+        }
+
+        .image-col {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="admin-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="admin-sidebar" role="navigation" aria-label="قائمة الملاحة الرئيسية">
+            <img src="./Logo.png" alt="شعار الجمعية" class="logo">
+            <nav>
+                <ul role="menubar">
+                    <li role="none"><a href="./admin-dashboard.html" role="menuitem"><i class="fas fa-arrow-right"></i>
+                            العودة للوحة التحكم</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-main" role="main">
+            <header class="admin-header">
+                <h1><i class="fas fa-images"></i> إدارة الصور</h1>
+                <a href="../index.html" class="back-link"><i class="fas fa-globe"></i> العودة للموقع</a>
+            </header>
+
+            <section class="management-container">
+                <div class="management-header">
+                    <h2 style="margin: 0; color: #b28935; font-size: 22px;"><i class="fas fa-list"></i> قائمة الصور</h2>
+                    <button class="add-item-btn" onclick="openAddModal()">
+                        <i class="fas fa-plus"></i> إضافة صورة جديدة
+                    </button>
+                </div>
+
+                <div id="itemsContainer">
+                    <table class="items-table" id="itemsTable">
+                        <thead>
+                            <tr>
+                                <th>اسم الصورة</th>
+                                <th>رابط الصورة</th>
+                                <th>الوصف</th>
+                                <th>الإجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody id="itemsBody">
+                        </tbody>
+                    </table>
+                    <div class="empty-state" id="emptyState" style="display: none;">
+                        <i class="fas fa-inbox"></i>
+                        <p>لا توجد صور حتى الآن. اضف صورة جديدة للبدء!</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Add/Edit Modal -->
+    <div id="itemModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">إضافة صورة جديدة</h2>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <form id="itemForm">
+                <div class="form-group">
+                    <label for="itemTitle">اسم الصورة *</label>
+                    <input type="text" id="itemTitle" required>
+                </div>
+                <div class="form-group">
+                    <label for="itemURL">رابط الصورة *</label>
+                    <input type="url" id="itemURL" required onchange="updatePreview()">
+                    <div id="previewContainer"></div>
+                </div>
+                <div class="form-group">
+                    <label for="itemDescription">الوصف</label>
+                    <textarea id="itemDescription"></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="submit" class="save-btn">
+                        <i class="fas fa-save"></i> حفظ
+                    </button>
+                    <button type="button" class="cancel-btn" onclick="closeModal()">
+                        <i class="fas fa-times"></i> إلغاء
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let items = JSON.parse(localStorage.getItem('imagesItems')) || [];
+        let editingIndex = -1;
+
+        function updatePreview() {
+            const url = document.getElementById('itemURL').value;
+            const container = document.getElementById('previewContainer');
+            if (url) {
+                container.innerHTML = `<img src="${url}" alt="معاينة" class="image-preview" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22120%22%3E%3Crect fill=%22%23ddd%22 width=%22200%22 height=%22120%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 text-anchor=%22middle%22 dy=%22.3em%22 font-family=%22Arial%22 font-size=%2214%22 fill=%22%23999%22%3Eفشل تحميل الصورة%3C/text%3E%3C/svg%3E'">`;
+            } else {
+                container.innerHTML = '';
+            }
+        }
+
+        function loadItems() {
+            const tbody = document.getElementById('itemsBody');
+            const emptyState = document.getElementById('emptyState');
+            const itemsContainer = document.getElementById('itemsContainer');
+
+            tbody.innerHTML = '';
+
+            if (items.length === 0) {
+                emptyState.style.display = 'block';
+                itemsContainer.querySelector('.items-table').style.display = 'none';
+            } else {
+                emptyState.style.display = 'none';
+                itemsContainer.querySelector('.items-table').style.display = 'table';
+
+                items.forEach((item, index) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${item.title}</td>
+                        <td><a href="${item.url}" target="_blank" style="color: #b28935; text-decoration: none;">عرض الصورة</a></td>
+                        <td>${item.description.substring(0, 50)}...</td>
+                        <td>
+                            <div class="item-actions">
+                                <button class="action-btn edit-btn" onclick="openEditModal(${index})">
+                                    <i class="fas fa-edit"></i> تعديل
+                                </button>
+                                <button class="action-btn delete-btn" onclick="deleteItem(${index})">
+                                    <i class="fas fa-trash"></i> حذف
+                                </button>
+                            </div>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            }
+        }
+
+        function openAddModal() {
+            editingIndex = -1;
+            document.getElementById('modalTitle').textContent = 'إضافة صورة جديدة';
+            document.getElementById('itemForm').reset();
+            document.getElementById('previewContainer').innerHTML = '';
+            document.getElementById('itemModal').classList.add('active');
+        }
+
+        function openEditModal(index) {
+            editingIndex = index;
+            const item = items[index];
+            document.getElementById('modalTitle').textContent = 'تعديل الصورة';
+            document.getElementById('itemTitle').value = item.title;
+            document.getElementById('itemURL').value = item.url;
+            document.getElementById('itemDescription').value = item.description;
+            updatePreview();
+            document.getElementById('itemModal').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('itemModal').classList.remove('active');
+            editingIndex = -1;
+        }
+
+        document.getElementById('itemForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const newItem = {
+                title: document.getElementById('itemTitle').value,
+                url: document.getElementById('itemURL').value,
+                description: document.getElementById('itemDescription').value
+            };
+
+            if (editingIndex === -1) {
+                items.push(newItem);
+            } else {
+                items[editingIndex] = newItem;
+            }
+
+            localStorage.setItem('imagesItems', JSON.stringify(items));
+            closeModal();
+            loadItems();
+        });
+
+        function deleteItem(index) {
+            if (confirm('هل أنت متأكد من حذف هذه الصورة؟')) {
+                items.splice(index, 1);
+                localStorage.setItem('imagesItems', JSON.stringify(items));
+                loadItems();
+            }
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('itemModal').addEventListener('click', function (e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Load items on page load
+        loadItems();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,412 @@
+/* ======================================
+   Admin Dashboard Styles
+   ====================================== */
+
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Reset and Base Styles */
+body {
+    font-family: 'Cairo', sans-serif;
+    background: #f8f9fa;
+}
+
+/* Layout */
+.admin-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* ======================================
+   Sidebar Navigation
+   ====================================== */
+
+.admin-sidebar {
+    width: 230px;
+    background: linear-gradient(120deg, #b28935 80%, #d4a24e 100%);
+    color: #fff;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 0 18px #b2893533;
+}
+
+.admin-sidebar .logo {
+    width: 90px;
+    margin: 32px 0 18px 0;
+    border-radius: 14px;
+    box-shadow: 0 2px 12px #fff2;
+    background: #fff;
+    padding: 8px;
+}
+
+.admin-sidebar nav {
+    width: 100%;
+}
+
+.admin-sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.admin-sidebar li {
+    width: 100%;
+}
+
+.admin-sidebar a {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    color: #fff;
+    text-decoration: none;
+    padding: 15px 28px;
+    font-size: 15px;
+    font-weight: 700;
+    border-right: 4px solid transparent;
+    transition: background 0.18s, border-color 0.18s, color 0.18s;
+    letter-spacing: 0.2px;
+}
+
+.admin-sidebar a:hover,
+.admin-sidebar a.active {
+    background: #fff2;
+    border-right: 4px solid #fff;
+    color: #ffe7b3;
+}
+
+.admin-sidebar i {
+    font-size: 18px;
+}
+
+/* ======================================
+   Main Content Area
+   ====================================== */
+
+.admin-main {
+    flex: 1;
+    padding: 0;
+    background: #f8f9fa;
+    min-height: 100vh;
+}
+
+/* Header */
+.admin-header {
+    background: #fff;
+    box-shadow: 0 2px 8px #b2893512;
+    padding: 28px 44px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid #f3e6cc;
+}
+
+.admin-header h1 {
+    color: #b28935;
+    font-size: 28px;
+    font-weight: 900;
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+.admin-header .back-link {
+    color: #b28935;
+    text-decoration: underline;
+    font-weight: 700;
+    font-size: 15px;
+    transition: color 0.18s;
+    border-radius: 8px;
+    padding: 6px 18px;
+    background: #fffbe9;
+}
+
+.admin-header .back-link:hover {
+    color: #a67c2d;
+    background: #f9f7f3;
+}
+
+/* Grid Layout */
+.admin-actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 36px;
+    padding: 44px 32px 32px 32px;
+}
+
+/* ======================================
+   Cards
+   ====================================== */
+
+.admin-card {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 4px 24px #b2893512;
+    padding: 32px 22px 28px 22px;
+    text-align: center;
+    transition: box-shadow 0.22s, transform 0.18s;
+    border: 1.5px solid #f3e6cc;
+    position: relative;
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.admin-card:hover {
+    box-shadow: 0 10px 36px #b2893522;
+    transform: translateY(-6px) scale(1.01);
+    border-color: #e7d7b9;
+}
+
+.admin-card h2 {
+    font-size: 20px;
+    color: #b28935;
+    margin-bottom: 18px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+}
+
+/* ======================================
+   Action Items
+   ====================================== */
+
+.admin-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+}
+
+.admin-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+}
+
+/* Primary Pages Section Styling */
+#pages .admin-links {
+    width: 100%;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+#pages {
+    background: linear-gradient(135deg, #fffbe9 0%, #fff 100%);
+    border: 2px solid #b28935;
+    box-shadow: 0 8px 32px rgba(178, 137, 53, 0.15);
+    grid-column: span 3;
+}
+
+#pages h2 {
+    background: linear-gradient(90deg, #b28935, #d4a24e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 22px;
+    margin-bottom: 24px;
+    text-shadow: none;
+}
+
+#pages .admin-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    background: #fff;
+    border: 1.5px solid #e7d7b9;
+    border-radius: 12px;
+    color: #333;
+    font-weight: 600;
+    transition: all 0.22s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+#pages .admin-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+#pages .admin-link:hover::before {
+    left: 100%;
+}
+
+#pages .admin-link:hover {
+    background: linear-gradient(135deg, #b28935, #d4a24e);
+    color: #fff;
+    border-color: #b28935;
+    box-shadow: 0 6px 20px rgba(178, 137, 53, 0.25);
+    transform: translateX(-4px) translateY(-2px);
+}
+
+#pages .admin-link i {
+    font-size: 18px;
+    color: #b28935;
+    transition: color 0.22s ease;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+}
+
+#pages .admin-link:hover i {
+    color: #ffe7b3;
+    transform: scale(1.15);
+}
+
+/* ======================================
+   Buttons
+   ====================================== */
+
+.admin-btn {
+    background: linear-gradient(90deg, #b28935 60%, #d4a24e 100%);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 9px 22px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.18s, box-shadow 0.18s, transform 0.18s;
+    box-shadow: 0 2px 8px rgba(178, 137, 53, 0.10);
+    outline: none;
+    margin-bottom: 4px;
+    text-decoration: none;
+}
+
+.admin-btn:hover,
+.admin-btn:focus {
+    background: linear-gradient(90deg, #b28935 80%, #a67c2d 100%);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(178, 137, 53, 0.18);
+    transform: translateY(-2px) scale(1.04);
+}
+
+/* Upload button (label styled as button) */
+.admin-btn-upload {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    margin-bottom: 0;
+}
+
+.admin-btn-upload i {
+    font-size: 15px;
+    opacity: 0.95;
+}
+
+.admin-upload-input {
+    position: absolute;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+}
+
+/* ======================================
+   Links
+   ====================================== */
+
+.admin-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #b28935;
+    background: #f9f7f3;
+    border: 1.5px solid #b28935;
+    border-radius: 10px;
+    padding: 10px 22px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 15px;
+    transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+    margin: 4px 0;
+}
+
+.admin-link:hover,
+.admin-link:focus {
+    background: #b28935;
+    color: #fff;
+    box-shadow: 0 2px 8px #b2893522;
+}
+
+.admin-link i {
+    font-size: 16px;
+    color: #b28935;
+    transition: color 0.18s;
+}
+
+.admin-link:hover i,
+.admin-link:focus i {
+    color: #fff;
+}
+
+/* ======================================
+   Responsive Design
+   ====================================== */
+
+@media (max-width: 900px) {
+    .admin-actions-grid {
+        grid-template-columns: 1fr;
+        padding: 18px;
+    }
+
+    .admin-sidebar {
+        width: 100px;
+    }
+
+    .admin-sidebar a {
+        font-size: 12px;
+        padding: 12px 10px;
+        gap: 6px;
+    }
+
+    .admin-sidebar .logo {
+        width: 50px;
+        margin: 18px 0 10px 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .admin-card {
+        padding: 18px 8px 18px 8px;
+        min-height: 160px;
+    }
+
+    .admin-btn,
+    .admin-link {
+        font-size: 13px;
+        padding: 8px 12px;
+    }
+
+    .admin-header {
+        padding: 18px 10px;
+    }
+
+    .admin-header h1 {
+        font-size: 20px;
+    }
+}
