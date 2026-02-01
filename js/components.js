@@ -4,7 +4,7 @@ export const header = `
             position: absolute;
             inset: 0;
             z-index: 0;
-            background: url('../image/Photo1.jpeg') center center/cover no-repeat;
+            background: url('./image/Photo1.jpeg') center center/cover no-repeat;
             opacity: 0.13;
             pointer-events: none;
             border-bottom: 1px solid #eee;
@@ -60,7 +60,7 @@ export const header = `
                 <div class="nav-wrapper">
                     <!-- Logo Section -->
                     <div class="logo-section">
-                        <img src="../image/Logo-1.png" class="logo" alt="جمعية دعائم للعناية بالمساجد بقوز الجعافرة"/>
+                        <img src="./image/Logo-1.png" class="logo" alt="جمعية دعائم للعناية بالمساجد بقوز الجعافرة"/>
                     </div>
 
                     <!-- Menu Items -->
