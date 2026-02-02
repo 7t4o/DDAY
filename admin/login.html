@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول - لوحة التحكم</title>
+    <link rel="stylesheet" href="./admin-dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .login-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #f8f9fa 0%, #fffbe9 50%, #f3e6cc 100%);
+            padding: 24px;
+        }
+        .login-card {
+            width: 100%;
+            max-width: 420px;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 12px 48px rgba(178, 137, 53, 0.18);
+            padding: 44px 36px;
+            border: 1.5px solid #e7d7b9;
+        }
+        .login-card .logo {
+            width: 80px;
+            display: block;
+            margin: 0 auto 28px;
+            border-radius: 14px;
+            box-shadow: 0 2px 12px rgba(178, 137, 53, 0.2);
+        }
+        .login-card h1 {
+            color: #b28935;
+            font-size: 24px;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+        .login-card .subtitle {
+            color: #666;
+            font-size: 14px;
+            text-align: center;
+            margin-bottom: 28px;
+        }
+        .login-form .form-group {
+            margin-bottom: 20px;
+        }
+        .login-form label {
+            display: block;
+            color: #333;
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        .login-form input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1.5px solid #e7d7b9;
+            border-radius: 12px;
+            font-size: 15px;
+            font-family: inherit;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .login-form input:focus {
+            outline: none;
+            border-color: #b28935;
+            box-shadow: 0 0 0 3px rgba(178, 137, 53, 0.15);
+        }
+        .login-form button[type="submit"] {
+            width: 100%;
+            margin-top: 8px;
+            padding: 16px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .login-form button[type="submit"]:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+        .login-error {
+            background: #fee;
+            color: #c00;
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-size: 14px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        .login-error.show {
+            display: block;
+        }
+        .back-to-site {
+            display: block;
+            text-align: center;
+            margin-top: 24px;
+            color: #b28935;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .back-to-site:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-page">
+        <div class="login-card">
+            <img src="./Logo.png" alt="شعار الجمعية" class="logo">
+            <h1><i class="fas fa-lock"></i> تسجيل الدخول</h1>
+            <p class="subtitle">لوحة تحكم المدير</p>
+
+            <div id="login-error" class="login-error" role="alert"></div>
+
+            <form id="login-form" class="login-form" method="post" novalidate>
+                <div class="form-group">
+                    <label for="email">البريد الإلكتروني</label>
+                    <input type="email" id="email" name="email" required autocomplete="email" placeholder="admin@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="password">كلمة المرور</label>
+                    <input type="password" id="password" name="password" required autocomplete="current-password" placeholder="••••••••">
+                </div>
+                <button type="submit" class="admin-btn" id="submit-btn">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <span>دخول</span>
+                </button>
+            </form>
+
+            <a href="../index.html" class="back-to-site"><i class="fas fa-globe"></i> العودة للموقع</a>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            const API_LOGIN = 'https://dday-api.onrender.com/api/admin/login';
+            const TOKEN_KEY = 'admin_token';
+            const DASHBOARD_URL = './admin-dashboard.html';
+
+            const form = document.getElementById('login-form');
+            const errorEl = document.getElementById('login-error');
+            const submitBtn = document.getElementById('submit-btn');
+
+            // If already logged in, redirect to dashboard
+            if (localStorage.getItem(TOKEN_KEY)) {
+                window.location.href = DASHBOARD_URL;
+                return;
+            }
+
+            function showError(msg) {
+                errorEl.textContent = msg || '';
+                errorEl.classList.toggle('show', !!msg);
+            }
+
+            form.addEventListener('submit', async function (e) {
+                e.preventDefault();
+                showError('');
+
+                const email = document.getElementById('email').value.trim();
+                const password = document.getElementById('password').value;
+
+                if (!email || !password) {
+                    showError('يرجى إدخال البريد الإلكتروني وكلمة المرور.');
+                    return;
+                }
+
+                submitBtn.disabled = true;
+                submitBtn.querySelector('span').textContent = 'جاري الدخول...';
+
+                try {
+                    const res = await fetch(API_LOGIN, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ email, password }),
+                    });
+
+                    const data = await res.json().catch(function () { return {}; });
+
+                    if (!res.ok) {
+                        showError(data.message || data.error || 'فشل تسجيل الدخول. تحقق من البيانات.');
+                        submitBtn.disabled = false;
+                        submitBtn.querySelector('span').textContent = 'دخول';
+                        return;
+                    }
+
+                    const token = data.token || data.accessToken || data.access_token;
+                    if (token) {
+                        localStorage.setItem(TOKEN_KEY, token);
+                        console.log(token);
+                        console.log(data)
+                        window.location.href = DASHBOARD_URL;
+                        return;
+                    }
+
+                    showError('لم يتم استلام رمز الدخول من الخادم.');
+                    console.log(data);
+                } catch (err) {
+                    showError('خطأ في الاتصال. تحقق من الشبكة وحاول مرة أخرى.');
+                }
+
+                submitBtn.disabled = false;
+                submitBtn.querySelector('span').textContent = 'دخول';
+            });
+        })();
+    </script>
+</body>
+
+</html>

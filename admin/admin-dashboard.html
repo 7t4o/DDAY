@@ -7,6 +7,7 @@
     <title>لوحة تحكم المدير</title>
     <link rel="stylesheet" href="./admin-dashboard.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="./js/admin-auth.js"></script>
 </head>
 
 <body>
@@ -53,7 +54,10 @@
         <main class="admin-main" role="main">
             <header class="admin-header">
                 <h1><i class="fas fa-cogs"></i> لوحة تحكم المدير</h1>
-                <a href="../index.html" class="back-link"><i class="fas fa-globe"></i> العودة للموقع</a>
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <a href="#" id="admin-logout" class="back-link" style="background: #fee;"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</a>
+                    <a href="../index.html" class="back-link"><i class="fas fa-globe"></i> العودة للموقع</a>
+                </div>
             </header>
 
             <section class="admin-actions-grid">
@@ -262,7 +266,7 @@
     </div>
 
     <script>
-        const API_BASE = 'https://your-api-endpoint';
+        const API_BASE = 'https://dday-api.onrender.com/api';
 
         /**
          * Upload an image to the given route using FormData (multipart/form-data).
@@ -281,6 +285,9 @@
 
             fetch(url, {
                 method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('admin_token')}`
+                },
                 body: formData
                 // Do not set Content-Type: browser sets multipart/form-data with boundary
             })
@@ -300,6 +307,7 @@
                 method: action === 'delete' ? 'DELETE' : 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('admin_token')}`
                 },
                 body: JSON.stringify({ /* Your data here */ })
             };
@@ -330,6 +338,13 @@
                     handleData('delete', route);
                 }
             });
+        });
+
+        // Logout: clear token and go to login
+        document.getElementById('admin-logout').addEventListener('click', function (e) {
+            e.preventDefault();
+            localStorage.removeItem('admin_token');
+            window.location.href = './login.html';
         });
     </script>
 </body>
