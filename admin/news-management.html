@@ -6,291 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>إدارة الأخبار</title>
     <link rel="stylesheet" href="./admin-dashboard.css">
+    <link rel="stylesheet" href="./news-management.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        .management-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .management-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 32px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid #e7d7b9;
-        }
-
-        .management-header h1 {
-            color: #b28935;
-            font-size: 28px;
-            font-weight: 900;
-            margin: 0;
-        }
-
-        .add-item-btn {
-            background: linear-gradient(90deg, #b28935 60%, #d4a24e 100%);
-            color: #fff;
-            border: none;
-            border-radius: 10px;
-            padding: 12px 24px;
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.22s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .add-item-btn:hover {
-            background: linear-gradient(90deg, #a67c2d 60%, #b28935 100%);
-            box-shadow: 0 4px 16px rgba(178, 137, 53, 0.25);
-            transform: translateY(-2px);
-        }
-
-        .items-table {
-            width: 100%;
-            border-collapse: collapse;
-            background: #fff;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 24px rgba(178, 137, 53, 0.12);
-        }
-
-        .items-table thead {
-            background: linear-gradient(90deg, #b28935, #d4a24e);
-            color: #fff;
-        }
-
-        .items-table th {
-            padding: 16px;
-            text-align: right;
-            font-weight: 700;
-            font-size: 15px;
-            letter-spacing: 0.5px;
-        }
-
-        .items-table td {
-            padding: 14px 16px;
-            border-bottom: 1px solid #f3e6cc;
-            color: #333;
-            font-size: 14px;
-        }
-
-        .items-table tbody tr:last-child td {
-            border-bottom: none;
-        }
-
-        .items-table tbody tr:hover {
-            background: #fffbe9;
-        }
-
-        .item-actions {
-            display: flex;
-            gap: 8px;
-        }
-
-        .action-btn {
-            padding: 8px 12px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: 600;
-            transition: all 0.22s ease;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-
-        .edit-btn {
-            background: #e3f2fd;
-            color: #1976d2;
-        }
-
-        .edit-btn:hover {
-            background: #1976d2;
-            color: #fff;
-        }
-
-        .delete-btn {
-            background: #ffebee;
-            color: #c62828;
-        }
-
-        .delete-btn:hover {
-            background: #c62828;
-            color: #fff;
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: #999;
-        }
-
-        .empty-state i {
-            font-size: 64px;
-            color: #ddd;
-            margin-bottom: 16px;
-        }
-
-        .empty-state p {
-            font-size: 16px;
-            margin: 0;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            animation: fadeIn 0.3s ease;
-        }
-
-        .modal.active {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-
-        .modal-content {
-            background: #fff;
-            padding: 32px;
-            border-radius: 16px;
-            width: 90%;
-            max-width: 500px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-            animation: slideUp 0.3s ease;
-        }
-
-        @keyframes slideUp {
-            from {
-                transform: translateY(20px);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-            padding-bottom: 16px;
-            border-bottom: 2px solid #f3e6cc;
-        }
-
-        .modal-header h2 {
-            color: #b28935;
-            font-size: 22px;
-            margin: 0;
-        }
-
-        .close-btn {
-            background: none;
-            border: none;
-            font-size: 28px;
-            color: #b28935;
-            cursor: pointer;
-            transition: color 0.22s ease;
-        }
-
-        .close-btn:hover {
-            color: #a67c2d;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: #333;
-            font-weight: 600;
-            font-size: 14px;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1.5px solid #e7d7b9;
-            border-radius: 8px;
-            font-family: 'Cairo', sans-serif;
-            font-size: 14px;
-            transition: border-color 0.22s ease;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #b28935;
-            box-shadow: 0 0 0 3px rgba(178, 137, 53, 0.1);
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        .modal-actions {
-            display: flex;
-            gap: 12px;
-            margin-top: 28px;
-        }
-
-        .modal-actions button {
-            flex: 1;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.22s ease;
-            font-size: 14px;
-        }
-
-        .save-btn {
-            background: linear-gradient(90deg, #b28935 60%, #d4a24e 100%);
-            color: #fff;
-        }
-
-        .save-btn:hover {
-            box-shadow: 0 4px 12px rgba(178, 137, 53, 0.25);
-            transform: translateY(-2px);
-        }
-
-        .cancel-btn {
-            background: #f0f0f0;
-            color: #333;
-        }
-
-        .cancel-btn:hover {
-            background: #e0e0e0;
-        }
-    </style>
+    <script src="./js/admin-auth.js"></script>
 </head>
 
 <body>
@@ -300,8 +18,11 @@
             <img src="./Logo.png" alt="شعار الجمعية" class="logo">
             <nav>
                 <ul role="menubar">
-                    <li role="none"><a href="./admin-dashboard.html" role="menuitem"><i class="fas fa-arrow-right"></i>
-                            العودة للوحة التحكم</a></li>
+                    <li role="none">
+                        <a href="./admin-dashboard.html" role="menuitem"><i class="fas fa-arrow-right"></i>
+                            العودة للوحة التحكم
+                        </a>
+                    </li>
                 </ul>
             </nav>
         </aside>
@@ -327,8 +48,9 @@
                         <thead>
                             <tr>
                                 <th>العنوان</th>
-                                <th>الوصف</th>
-                                <th>التاريخ</th>
+                                <th>ملخص</th>
+                                <th>Slug</th>
+                                <th>تاريخ النشر</th>
                                 <th>الإجراءات</th>
                             </tr>
                         </thead>
@@ -357,12 +79,29 @@
                     <input type="text" id="itemTitle" required>
                 </div>
                 <div class="form-group">
-                    <label for="itemDescription">الوصف *</label>
-                    <textarea id="itemDescription" required></textarea>
+                    <label for="itemSlug">Slug *</label>
+                    <input type="text" id="itemSlug" required placeholder="news-title-slug">
                 </div>
                 <div class="form-group">
-                    <label for="itemDate">التاريخ *</label>
-                    <input type="date" id="itemDate" required>
+                    <label for="itemPublishedDate">تاريخ النشر *</label>
+                    <input type="date" id="itemPublishedDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="itemImageFile">الصورة (اختياري)</label>
+                    <input type="file" id="itemImageFile" accept="image/*">
+                    <div style="margin-top: 10px; display: none;" id="imagePreviewWrap">
+                        <img id="itemImagePreview" alt="معاينة الصورة"
+                            style="max-width: 100%; border-radius: 12px; border: 1.5px solid #e7d7b9;">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="itemExcerpt">ملخص (Excerpt) *</label>
+                    <textarea id="itemExcerpt" required placeholder="ملخص قصير يظهر في القائمة..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="itemContent">المحتوى (Content) *</label>
+                    <textarea id="itemContent" required style="min-height: 180px;"
+                        placeholder="محتوى الخبر الكامل..."></textarea>
                 </div>
                 <div class="modal-actions">
                     <button type="submit" class="save-btn">
@@ -377,9 +116,38 @@
     </div>
 
     <script>
-        let items = JSON.parse(localStorage.getItem('newsItems')) || [];
-        let editingIndex = -1;
+        const NEWS_API = 'https://dday-api.onrender.com/api/news';
+        const token = localStorage.getItem('admin_token');
 
+        let items = [];
+        let editingItem = null;
+
+        // تحويل تاريخ الخبر الى هذا الشكل yyyy-mm-dd
+        function toDateInputValue(value) {
+            if (!value) return '';
+            // If ISO string, take yyyy-mm-dd; if already yyyy-mm-dd keep it.
+            if (typeof value === 'string' && value.length >= 10) return value.slice(0, 10);
+            try {
+                const d = new Date(value);
+                if (isNaN(d.getTime())) return '';
+                const yyyy = d.getFullYear();
+                const mm = String(d.getMonth() + 1).padStart(2, '0');
+                const dd = String(d.getDate()).padStart(2, '0');
+                return `${yyyy}-${mm}-${dd}`;
+            } catch {
+                return '';
+            }
+        }
+
+        // إستدعاء الأخبار من الـ APi
+        async function fetchNews() {
+            const res = await fetch(NEWS_API, { method: 'GET' });
+            const data = await res.json().catch(() => []);
+            const list = Array.isArray(data) ? data : (Array.isArray(data.data) ? data.data : []);
+            return list;
+        }
+
+        // تحميل الأخبار الى الواجهه
         function loadItems() {
             const tbody = document.getElementById('itemsBody');
             const emptyState = document.getElementById('emptyState');
@@ -398,8 +166,9 @@
                     const row = document.createElement('tr');
                     row.innerHTML = `
                         <td>${item.title}</td>
-                        <td>${item.description.substring(0, 50)}...</td>
-                        <td>${item.date}</td>
+                        <td>${(item.excerpt || '').substring(0, 60)}${(item.excerpt || '').length > 60 ? '...' : ''}</td>
+                        <td dir="ltr" style="text-align: left;">${item.slug || ''}</td>
+                        <td>${toDateInputValue(item.published_date)}</td>
                         <td>
                             <div class="item-actions">
                                 <button class="action-btn edit-btn" onclick="openEditModal(${index})">
@@ -416,65 +185,196 @@
             }
         }
 
+        // فتح نافذة إضافة خبر
         function openAddModal() {
-            editingIndex = -1;
+            editingItem = null;
             document.getElementById('modalTitle').textContent = 'إضافة خبر جديد';
             document.getElementById('itemForm').reset();
+            const fileEl = document.getElementById('itemImageFile');
+            if (fileEl) fileEl.value = '';
+            document.getElementById('imagePreviewWrap').style.display = 'none';
+            document.getElementById('itemImagePreview').src = '';
             document.getElementById('itemModal').classList.add('active');
         }
 
         function openEditModal(index) {
-            editingIndex = index;
             const item = items[index];
+            editingItem = item;
             document.getElementById('modalTitle').textContent = 'تعديل الخبر';
             document.getElementById('itemTitle').value = item.title;
-            document.getElementById('itemDescription').value = item.description;
-            document.getElementById('itemDate').value = item.date;
+            document.getElementById('itemSlug').value = item.slug;
+            document.getElementById('itemPublishedDate').value = toDateInputValue(item.published_date);
+            const fileEl = document.getElementById('itemImageFile');
+            if (fileEl) fileEl.value = '';
+            if (item.image) {
+                document.getElementById('itemImagePreview').src = item.image;
+                document.getElementById('imagePreviewWrap').style.display = 'block';
+            } else {
+                document.getElementById('imagePreviewWrap').style.display = 'none';
+                document.getElementById('itemImagePreview').src = '';
+            }
+            document.getElementById('itemExcerpt').value = item.excerpt;
+            document.getElementById('itemContent').value = item.content;
             document.getElementById('itemModal').classList.add('active');
         }
 
+        // إغلاق النافذة
         function closeModal() {
             document.getElementById('itemModal').classList.remove('active');
-            editingIndex = -1;
+            editingItem = null;
         }
 
-        document.getElementById('itemForm').addEventListener('submit', function (e) {
+        // إنشاء كائن FormData 
+        function buildNewsFormData(payload, file) {
+            const fd = new FormData();
+            fd.append('title', payload.title);
+            fd.append('published_date', payload.published_date);
+            fd.append('excerpt', payload.excerpt);
+            fd.append('content', payload.content);
+            fd.append('slug', payload.slug);
+            if (file) fd.append('image', file);
+            return fd;
+        }
+
+        // إضافة خبر
+        async function createNews(payload, file) {
+            const res = await fetch(NEWS_API, {
+                method: 'POST',
+                headers: {
+                    'credentials': 'include',
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization' : `Bearer ${token}`
+                },
+                body: buildNewsFormData(payload, file)
+            });
+            const data = await res.json().catch(() => ({}));
+            if (!res.ok) throw new Error(data.message || data.error || 'فشل إنشاء الخبر.');
+            return (data.data || data);
+        }
+
+        // تعديل خبر
+        async function updateNews(identifier, payload, file) {
+            // Many APIs use PUT /api/news/:id (or :slug)
+            const url = `${NEWS_API}/${encodeURIComponent(identifier)}`;
+            const res = await fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization' : `Bearer ${token}`
+                },
+                body: buildNewsFormData(payload, file)
+            });
+            const data = await res.json().catch(() => ({}));
+            if (!res.ok) throw new Error(data.message || data.error || 'فشل تحديث الخبر.');
+            return (data.data || data);
+        }
+
+        async function deleteNews(identifier) {
+            const url = `${NEWS_API}/${encodeURIComponent(identifier)}`;
+            const res = await fetch(url, { method: 'DELETE', 
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization' : `Bearer ${token}`
+            } });
+            if (!res.ok) {
+                const data = await res.json().catch(() => ({}));
+                throw new Error(data.message || data.error || 'فشل حذف الخبر.');
+            }
+            return true;
+        }
+
+        // إرسال الإضافة او التعديل
+        document.getElementById('itemForm').addEventListener('submit', async function (e) {
             e.preventDefault();
 
-            const newItem = {
-                title: document.getElementById('itemTitle').value,
-                description: document.getElementById('itemDescription').value,
-                date: document.getElementById('itemDate').value
+            const payload = {
+                title: document.getElementById('itemTitle').value.trim(),
+                published_date: document.getElementById('itemPublishedDate').value,
+                excerpt: document.getElementById('itemExcerpt').value.trim(),
+                content: document.getElementById('itemContent').value.trim(),
+                slug: document.getElementById('itemSlug').value.trim(),
             };
+            const fileInput = document.getElementById('itemImageFile');
+            const imageFile = fileInput && fileInput.files && fileInput.files[0] ? fileInput.files[0] : null;
 
-            if (editingIndex === -1) {
-                items.push(newItem);
-            } else {
-                items[editingIndex] = newItem;
+            if (!payload.title || !payload.slug || !payload.published_date || !payload.excerpt || !payload.content) {
+                alert('يرجى تعبئة جميع الحقول المطلوبة.');
+                return;
             }
 
-            localStorage.setItem('newsItems', JSON.stringify(items));
-            closeModal();
-            loadItems();
+            try {
+                if (!editingItem) {
+                    const created = await createNews(payload, imageFile);
+                    if (created) items.unshift(created);
+                } else {
+                    const identifier = editingItem.id || editingItem.slug;
+                    if (!identifier) {
+                        alert('لا يمكن تحديث هذا الخبر لعدم وجود (id) أو (slug).');
+                        return;
+                    }
+                    const updated = await updateNews(identifier, payload, imageFile);
+                    if (updated) {
+                        const idx = items.findIndex(x => (x.id && x.id === editingItem.id) || (x.slug && x.slug === editingItem.slug));
+                        if (idx !== -1) items[idx] = updated;
+                    }
+                }
+
+                closeModal();
+                loadItems();
+            } catch (err) {
+                alert(err && err.message ? err.message : 'حدث خطأ غير متوقع.');
+            }
         });
 
-        function deleteItem(index) {
+        // معاينة الصورة عند اختيار ملف
+        document.getElementById('itemImageFile').addEventListener('change', function () {
+            const file = this.files && this.files[0];
+            if (!file) {
+                document.getElementById('imagePreviewWrap').style.display = 'none';
+                document.getElementById('itemImagePreview').src = '';
+                return;
+            }
+            const url = URL.createObjectURL(file);
+            document.getElementById('itemImagePreview').src = url;
+            document.getElementById('imagePreviewWrap').style.display = 'block';
+        });
+
+        async function deleteItem(index) {
             if (confirm('هل أنت متأكد من حذف هذا الخبر؟')) {
-                items.splice(index, 1);
-                localStorage.setItem('newsItems', JSON.stringify(items));
-                loadItems();
+                const item = items[index];
+                const identifier = item && (item.id || item.slug);
+                if (!identifier) {
+                    alert('لا يمكن حذف هذا الخبر لعدم وجود (id) أو (slug).');
+                    return;
+                }
+                try {
+                    await deleteNews(identifier);
+                    items.splice(index, 1);
+                    loadItems();
+                } catch (err) {
+                    alert(err && err.message ? err.message : 'حدث خطأ أثناء الحذف.');
+                }
             }
         }
 
-        // Close modal when clicking outside
+        // إغلاق النافذة عند الضغط خارجها
         document.getElementById('itemModal').addEventListener('click', function (e) {
             if (e.target === this) {
                 closeModal();
             }
         });
 
-        // Load items on page load
-        loadItems();
+        // تحميل الأخبار عند تحديث الموقع
+        (async function init() {
+            try {
+                items = await fetchNews();
+                loadItems();
+            } catch (err) {
+                alert('تعذر جلب الأخبار من الخادم.');
+                items = [];
+                loadItems();
+            }
+        })();
     </script>
 </body>
 
